@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client-Expert AI Chatbot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <aside class="sidebar" aria-label="Chat history sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">Client-Expert AI Chatbot</div>
+                <button class="sidebar-new-chat" id="new-chat-btn-sidebar" data-tooltip="New Chat" aria-label="New Chat">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5v14"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="sidebar-content">
+                <ul id="history-list" class="chat-history-list"></ul>
+            </div>
+        </aside>
+
+        <div class="page-content">
+        <header class="header">
+            <div class="header-content">
+                <div class="header-left">
+                    <button class="header-button" id="sidebar-toggle-btn" data-tooltip="Toggle Sidebar" aria-label="Toggle Sidebar">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12h18M3 6h18M3 18h18"/>
+                        </svg>
+                    </button>
+                    <button class="header-button header-new-chat" id="new-chat-btn" data-tooltip="New Chat" aria-label="New Chat">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5v14"/>
+                        </svg>
+                        <span class="sr-only">New Chat</span>
+                    </button>
+                    <button class="theme-toggle" id="theme-toggle">
+                        <svg class="sun-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="4"/>
+                            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 6.34L4.93 4.93M19.07 19.07l-1.41-1.41"/>
+                        </svg>
+                        <svg class="moon-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="chat-container">
+                <div id="welcome-screen" class="welcome-screen">
+                    <div class="welcome-content">
+                        <h1 class="welcome-title">Hello there!</h1>
+                        <p class="welcome-subtitle">How can I help you today?</p>
+                        
+                        <div class="suggested-actions">
+                            <button class="suggestion-card" data-suggestion="Summarize the discussion about the Slack & Google Sheets integration in the #all-n8n-client-specific-expert channel last week.">
+                                <span class="suggestion-title">Summarize the discussion</span>
+                                <span class="suggestion-subtitle">about the Slack & Google Sheets integration in the #all-n8n-client-specific-expert channel last week.</span>
+                            </button>
+                            <button class="suggestion-card" data-suggestion="Find the latest commit related to authentication in our Github repo.">
+                                <span class="suggestion-title">Find the latest commit</span>
+                                <span class="suggestion-subtitle">related to authentication in our Github repo.</span>
+                            </button>
+                            <button class="suggestion-card" data-suggestion="What have been discussed regarding how AI agents are built?">
+                                <span class="suggestion-title">What have been discussed</span>
+                                <span class="suggestion-subtitle">regarding how AI agents are built?</span>
+                            </button>
+                            <button class="suggestion-card" data-suggestion="What are the main advantages of using n8n for automation workflows?">
+                                <span class="suggestion-title">What are the main advantages</span>
+                                <span class="suggestion-subtitle">of using n8n for automation workflows?</span>
+                            </button>
+                            <button class="suggestion-card" data-suggestion="Compare Cursor and Copilot and explain their similarities and differences.">
+                                <span class="suggestion-title">Compare Cursor and Copilot</span>
+                                <span class="suggestion-subtitle">and explain their similarities and differences.</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="chat-window" class="chat-window" style="display: none;"></div>
+
+                <div class="input-wrapper">
+                    <div class="input-area">
+                        <button class="attachment-button" id="attachment-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+                            </svg>
+                        </button>
+                        <input type="text" id="user-input" placeholder="Send a message..." autocomplete="off" />
+                        <button class="send-button" id="send-button">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M2 21L23 12L2 3V10L17 12L2 14V21Z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <input type="file" id="file-input" style="display: none;" multiple accept=".txt,.pdf,.doc,.docx,.jpg,.jpeg,.png,.gif">
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
